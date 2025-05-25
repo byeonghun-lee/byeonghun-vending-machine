@@ -7,10 +7,11 @@ const Wallet = ({
     setPaymentInfo,
     paymentInfo,
 }) => {
-    const attemptPayment = ({ method, value }) => {
+    const attemptPayment = ({ method, value, cardCategory }) => {
         const updatePaymentInfo = {
             paymentMethod: method,
             price: paymentInfo.price,
+            cardCategory: null,
         };
 
         if (method === "money") {
@@ -27,6 +28,7 @@ const Wallet = ({
             updatePaymentInfo.price += value;
         } else {
             updatePaymentInfo.price = 0;
+            updatePaymentInfo.cardCategory = cardCategory;
         }
 
         setPaymentInfo(updatePaymentInfo);
@@ -71,6 +73,7 @@ const Wallet = ({
                         onClick={() => {
                             attemptPayment({
                                 method: "card",
+                                cardCategory: "debit",
                             });
                         }}
                     >
@@ -86,6 +89,7 @@ const Wallet = ({
                         onClick={() => {
                             attemptPayment({
                                 method: "card",
+                                cardCategory: "credit",
                             });
                         }}
                     >

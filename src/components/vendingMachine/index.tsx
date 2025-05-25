@@ -9,12 +9,23 @@ import INIT_INVENTORY from "@/constants/initialInventory";
 
 import "./vendingMachine.scss";
 
-const VendingMachine = ({ paymentInfo, setPaymentInfo, setMoney }) => {
+const VendingMachine = ({
+    paymentInfo,
+    setPaymentInfo,
+    setMoney,
+    card,
+    setCard,
+}) => {
     const [moneyInventory, setMoneyInventory] = useState(INIT_INVENTORY.money);
 
     return (
         <section className="vending-machine">
-            <DrinkPanel />
+            <DrinkPanel
+                paymentInfo={paymentInfo}
+                setPaymentInfo={setPaymentInfo}
+                card={card}
+                setCard={setCard}
+            />
             <section className="control-area">
                 <div>AD</div>
                 <PaymentPanel

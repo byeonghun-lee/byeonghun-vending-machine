@@ -1,3 +1,7 @@
+"use client";
+
+import { useEffect } from "react";
+
 import MONEY_UNITS from "@/constants/moneyUnits";
 
 import "./paymentPanel.scss";
@@ -64,13 +68,32 @@ const PaymentPanel = ({
         setPaymentInfo(updatedValues);
     };
 
+    useEffect(() => {
+        if (paymentInfo.errorMessage) {
+            const timer = setTimeout(() => {
+                setPaymentInfo((prev) => ({
+                    ...prev,
+                    paymentMethod: null,
+                    cardCategory: null,
+                    price: 0,
+                    errorMessage: null,
+                }));
+            }, 3000);
+
+            return () => clearTimeout(timer);
+        }
+    }, [paymentInfo.errorMessage]);
+
     return (
         <div className="payment-panel">
             <div>
                 <div className="status-screen">
-                    {paymentInfo.paymentMethod === "card"
-                        ? "CARD"
-                        : paymentInfo.price}
+                    <p>
+                        {paymentInfo.paymentMethod === "card"
+                            ? "CARD"
+                            : paymentInfo.price}
+                    </p>
+                    <p>{paymentInfo.errorMessage || "거래 가능"}</p>
                 </div>
                 <div className="paper-money-in-and-out">
                     <button>PAPER IN</button>

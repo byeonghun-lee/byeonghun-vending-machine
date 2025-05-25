@@ -13,6 +13,8 @@ export default function Home() {
     const [paymentInfo, setPaymentInfo] = useState({
         paymentMethod: null,
         price: 0,
+        cardCategory: null,
+        errorMessage: null,
     });
 
     return (
@@ -21,6 +23,8 @@ export default function Home() {
                 paymentInfo={paymentInfo}
                 setPaymentInfo={setPaymentInfo}
                 setMoney={setMoney}
+                card={card}
+                setCard={setCard}
             />
             <Wallet
                 money={Object.entries(money)}
