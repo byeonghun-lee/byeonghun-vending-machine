@@ -1,3 +1,84 @@
 .wallet {
-    
+    padding: 0 20px;
+
+    .money {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+    }
+
+    .money-list {
+        li {
+            display: flex;
+            align-items: center;
+
+            &:not(&:last-child) {
+                margin-bottom: 10px;
+            }
+
+            .insert-money-button {
+                border: 1px solid black;
+                font-size: 18px;
+                background-color: #e0e0e0;
+                cursor: pointer;
+
+                &.coin {
+                    margin-right: 50px;
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 50%;
+                }
+
+                &.paper-money {
+                    width: 100px;
+                    height: 40px;
+                }
+            }
+
+            p {
+                padding-left: 10px;
+            }
+        }
+    }
+
+    .edit-money-button {
+        font-size: 20px;
+        width: 100px;
+        height: 50px;
+        background-color: white;
+        border: 1px solid black;
+    }
+
+    .cards {
+        margin-top: 20px;
+
+        > div {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+
+            p {
+                padding: 0 10px;
+                display: inline-block;
+                width: 200px;
+            }
+        }
+
+        .insert-card-button {
+            width: 100px;
+            height: 40px;
+            background-color: #ffb74d;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .edit-card-button {
+            width: 50px;
+            font-size: 16px;
+            background-color: white;
+            border: 1px solid black;
+        }
+    }
 }
