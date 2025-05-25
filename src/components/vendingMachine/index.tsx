@@ -1,9 +1,11 @@
+import DrinkPanel from "../drinkPanel";
+
 import "./vendingMachine.scss";
 
 const VendingMachine = () => {
     return (
         <section className="vending-machine">
-            <section className="drink-area">음료영역</section>
+            <DrinkPanel />
             <section className="control-area">
                 <div>AD</div>
                 <div className="panel">
