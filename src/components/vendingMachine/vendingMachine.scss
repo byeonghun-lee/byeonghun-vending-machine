@@ -1,0 +1,11 @@
+.vending-machine {
+    border: 3px solid black;
+    width: 50%;
+    min-width: 500px;
+    height: 800px;
+
+
+    @media (max-width: 768px) {
+        width: 100%;
+    }
+}
