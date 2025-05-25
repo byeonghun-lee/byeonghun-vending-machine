@@ -1,6 +1,37 @@
 import "./wallet.scss";
 
-const Wallet = ({ money = [], card }) => {
+const Wallet = ({
+    money = [],
+    card,
+    setMoney,
+    setPaymentInfo,
+    paymentInfo,
+}) => {
+    const attemptPayment = ({ method, value }) => {
+        const updatePaymentInfo = {
+            paymentMethod: method,
+            price: paymentInfo.price,
+        };
+
+        if (method === "money") {
+            setMoney((prev) => {
+                const updateValues = { ...prev };
+                const targetMoney = money.find(
+                    (item) => item[0] === value.toString()
+                );
+
+                updateValues[value] = targetMoney[1] - 1;
+                return updateValues;
+            });
+
+            updatePaymentInfo.price += value;
+        } else {
+            updatePaymentInfo.price = 0;
+        }
+
+        setPaymentInfo(updatePaymentInfo);
+    };
+
     return (
         <section className="wallet">
             <div className="money">
@@ -9,8 +40,20 @@ const Wallet = ({ money = [], card }) => {
                         <li key={index}>
                             <button
                                 className={`insert-money-button ${
-                                    moneyItem < 1000 ? "coin" : "paper-money"
+                                    Number(moneyItem) < 1000
+                                        ? "coin"
+                                        : "paper-money"
                                 }`}
+                                disabled={
+                                    paymentInfo.paymentMethod === "card" ||
+                                    !numOfMoney
+                                }
+                                onClick={() => {
+                                    attemptPayment({
+                                        method: "money",
+                                        value: Number(moneyItem),
+                                    });
+                                }}
                             >
                                 {moneyItem}
                             </button>
@@ -22,12 +65,32 @@ const Wallet = ({ money = [], card }) => {
             </div>
             <div className="cards">
                 <div className="debit-card">
-                    <button className="insert-card-button">체크카드</button>
+                    <button
+                        className="insert-card-button"
+                        disabled={paymentInfo.paymentMethod === "money"}
+                        onClick={() => {
+                            attemptPayment({
+                                method: "card",
+                            });
+                        }}
+                    >
+                        체크카드
+                    </button>
                     <p>{card?.debit}</p>
                     <button className="edit-card-button">수정</button>
                 </div>
                 <div className="credit-card">
-                    <button className="insert-card-button">신용카드</button>
+                    <button
+                        className="insert-card-button"
+                        disabled={paymentInfo.paymentMethod === "money"}
+                        onClick={() => {
+                            attemptPayment({
+                                method: "card",
+                            });
+                        }}
+                    >
+                        신용카드
+                    </button>
                     <p>거래 {card?.credit ? "가능" : "불가"}</p>
                     <button className="edit-card-button">수정</button>
                 </div>

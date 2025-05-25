@@ -19,6 +19,7 @@
             .insert-money-button {
                 border: 1px solid black;
                 font-size: 18px;
+                color: black;
                 background-color: #e0e0e0;
                 cursor: pointer;
 
@@ -32,6 +33,10 @@
                 &.paper-money {
                     width: 100px;
                     height: 40px;
+                }
+
+                &:disabled {
+                    color: #bdbdbd;
                 }
             }
 
@@ -72,6 +77,11 @@
             border-radius: 10px;
             font-size: 18px;
             cursor: pointer;
+
+            &:disabled {
+                background-color: #eeeeee;
+                color: #e0e0e0;
+            }
         }
 
         .edit-card-button {

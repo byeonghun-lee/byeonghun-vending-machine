@@ -1,32 +1,28 @@
+"use client";
+
+import { useState } from "react";
+
 import DrinkPanel from "../drinkPanel";
+import PaymentPanel from "../paymentPanel";
+
+import INIT_INVENTORY from "@/constants/initialInventory";
 
 import "./vendingMachine.scss";
 
-const VendingMachine = () => {
+const VendingMachine = ({ paymentInfo, setPaymentInfo, setMoney }) => {
+    const [moneyInventory, setMoneyInventory] = useState(INIT_INVENTORY.money);
+
     return (
         <section className="vending-machine">
             <DrinkPanel />
             <section className="control-area">
                 <div>AD</div>
-                <div className="panel">
-                    <div>
-                        <div className="status-screen">000원</div>
-                        <div className="paper-money-in-and-out">
-                            <button>PAPER IN</button>
-                            <p>PAPER OUT</p>
-                        </div>
-                    </div>
-                    <div>
-                        <div className="coin-in-and-return-button">
-                            <button>return</button>
-                            <button>COINT IN</button>
-                        </div>
-                        <div className="coin-out">
-                            <p>COIN OUT</p>
-                        </div>
-                    </div>
-                    <button>설정</button>
-                </div>
+                <PaymentPanel
+                    paymentInfo={paymentInfo}
+                    setPaymentInfo={setPaymentInfo}
+                    setMoney={setMoney}
+                    moneyInventory={moneyInventory}
+                />
             </section>
             <section className="outlet-area">
                 <p>음료 아웃</p>
