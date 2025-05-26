@@ -1,20 +1,42 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import DrinkItem from "../drinkItem";
 
 import DRINK_META from "@/constants/drinkMeta";
 import INIT_INVENTORY from "@/constants/initialInventory";
 
+import { getRefundMoney } from "@/lib/utils/payment";
+
 import "./drinkPanel.scss";
 
-const DrinkPanel = ({ paymentInfo, setPaymentInfo, card, setCard }) => {
+const DrinkPanel = ({
+    paymentInfo,
+    setPaymentInfo,
+    card,
+    setCard,
+    moneyInventory,
+}) => {
     const [inventory, setInventory] = useState(INIT_INVENTORY.drink);
 
     const chooseDrink = ({ name, price }) => {
         if (paymentInfo.paymentMethod === "money") {
             if (paymentInfo.price < price) {
+                return;
+            }
+
+            const change = getRefundMoney({
+                amount: paymentInfo.price - price,
+                moneyInventory,
+            });
+            const hasChange = paymentInfo.price - price > 0;
+
+            if (hasChange && !Object.keys(change)?.length) {
+                setPaymentInfo((prev) => ({
+                    ...prev,
+                    errorMessage: "잔돈 부족",
+                }));
                 return;
             }
 
@@ -53,6 +75,19 @@ const DrinkPanel = ({ paymentInfo, setPaymentInfo, card, setCard }) => {
         }));
     };
 
+    useEffect(() => {
+        if (
+            Object.values(inventory).every(
+                (numOfInventory) => numOfInventory === 0
+            )
+        ) {
+            setPaymentInfo((prev) => ({
+                ...prev,
+                errorMessage: "재고 부족",
+            }));
+        }
+    }, [inventory]);
+
     return (
         <section className="drink-panel">
             {Object.entries(DRINK_META).map(([key, item], index) => (
@@ -62,6 +97,7 @@ const DrinkPanel = ({ paymentInfo, setPaymentInfo, card, setCard }) => {
                     name={item.label}
                     color={item.color}
                     price={item.price}
+                    soldOut={!inventory[key]}
                     disabled={
                         !inventory[key] ||
                         !paymentInfo.paymentMethod ||

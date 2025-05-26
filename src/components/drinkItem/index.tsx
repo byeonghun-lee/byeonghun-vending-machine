@@ -2,7 +2,15 @@
 
 import "./drinkItem.scss";
 
-const DrinkItem = ({ enName, name, price, color, disabled, onClick }) => {
+const DrinkItem = ({
+    enName,
+    name,
+    price,
+    color,
+    disabled,
+    onClick,
+    soldOut,
+}) => {
     return (
         <div className="drink-item">
             <div
@@ -21,7 +29,7 @@ const DrinkItem = ({ enName, name, price, color, disabled, onClick }) => {
                 disabled={disabled}
                 onClick={onClick}
             >
-                선택
+                {soldOut ? "품절" : "선택"}
             </button>
         </div>
     );

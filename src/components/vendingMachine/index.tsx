@@ -25,6 +25,7 @@ const VendingMachine = ({
                 setPaymentInfo={setPaymentInfo}
                 card={card}
                 setCard={setCard}
+                moneyInventory={moneyInventory}
             />
             <section className="control-area">
                 <div>AD</div>
