@@ -2,6 +2,7 @@
     display: flex;
     justify-content: space-between;
     flex: 4;
+    position: relative;
 
     .status-screen {
         padding: 0 20px;
@@ -104,6 +105,7 @@
     .setting-button {
         display: flex;
         align-items: center;
+        cursor: pointer;
         border: none;
         border-top-left-radius: 15px;
         border-top-right-radius: 15px;
@@ -129,6 +131,27 @@
                 height: 15px;
                 background-color: #424242;
             }
+        }
+    }
+
+    .inventory {
+        padding: 10px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: #bdbdbd;
+        border: 3px solid black;
+        width: 150px;
+
+        .close-button {
+            padding: 5px 10px;
+            background-color: white;
+            border: none;
+            font-size: 16px;
+        }
+
+        p {
+            margin-top: 10px;
         }
     }
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { getRefundMoney } from "@/lib/utils/payment";
 
@@ -11,7 +11,11 @@ const PaymentPanel = ({
     setPaymentInfo,
     setMoney,
     moneyInventory,
+    setMoneyInventory,
+    drinkInventory,
 }) => {
+    const [openedInventory, setOpenedInventory] = useState(false);
+
     const refundAmount = () => {
         const updatedValues = {
             paymentMethod: null,
@@ -28,6 +32,14 @@ const PaymentPanel = ({
                 const updateValues = { ...prev };
                 Object.keys(refundMoney).forEach((moneyKey) => {
                     updateValues[moneyKey] += refundMoney[moneyKey];
+                });
+
+                return updateValues;
+            });
+            setMoneyInventory((prev) => {
+                const updateValues = { ...prev };
+                Object.keys(refundMoney).forEach((moneyKey) => {
+                    updateValues[moneyKey] -= refundMoney[moneyKey];
                 });
 
                 return updateValues;
@@ -84,12 +96,49 @@ const PaymentPanel = ({
                 </div>
                 <div className="coin-out" />
             </div>
-            <button className="setting-button">
+            <button
+                className="setting-button"
+                onClick={() => setOpenedInventory(true)}
+            >
                 <div className="key-wrapper">
                     <div className="key-in" />
                 </div>
                 <p>설정</p>
             </button>
+            {openedInventory && (
+                <div className="inventory">
+                    <button
+                        className="close-button"
+                        onClick={() => setOpenedInventory(false)}
+                    >
+                        닫기
+                    </button>
+                    <p>
+                        <b>현금</b>
+                    </p>
+                    <ul>
+                        {Object.entries(moneyInventory).map(
+                            ([money, numOfMoney], mIndex) => (
+                                <li key={mIndex}>
+                                    {money}: {numOfMoney} 개
+                                </li>
+                            )
+                        )}
+                    </ul>
+                    <p>
+                        <b>음료</b>
+                    </p>
+                    <ul>
+                        {Object.entries(drinkInventory).map(
+                            ([drink, numOfDrink], dIndex) => (
+                                <li key={dIndex}>
+                                    {drink}: {numOfDrink} 개
+                                </li>
+                            )
+                        )}
+                    </ul>
+                </div>
+            )}
         </div>
     );
 };

@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import DrinkItem from "../drinkItem";
 
 import DRINK_META from "@/constants/drinkMeta";
-import INIT_INVENTORY from "@/constants/initialInventory";
 
 import { getRefundMoney } from "@/lib/utils/payment";
 
@@ -17,9 +16,9 @@ const DrinkPanel = ({
     card,
     setCard,
     moneyInventory,
+    drinkInventory,
+    setDrinkInventory,
 }) => {
-    const [inventory, setInventory] = useState(INIT_INVENTORY.drink);
-
     const chooseDrink = ({ name, price }) => {
         if (paymentInfo.paymentMethod === "money") {
             if (paymentInfo.price < price) {
@@ -69,7 +68,7 @@ const DrinkPanel = ({
             }
         }
 
-        setInventory((prev) => ({
+        setDrinkInventory((prev) => ({
             ...prev,
             [name]: prev[name] - 1,
         }));
@@ -77,7 +76,7 @@ const DrinkPanel = ({
 
     useEffect(() => {
         if (
-            Object.values(inventory).every(
+            Object.values(drinkInventory).every(
                 (numOfInventory) => numOfInventory === 0
             )
         ) {
@@ -86,7 +85,7 @@ const DrinkPanel = ({
                 errorMessage: "재고 부족",
             }));
         }
-    }, [inventory]);
+    }, [drinkInventory]);
 
     return (
         <section className="drink-panel">
@@ -98,9 +97,9 @@ const DrinkPanel = ({
                         name={item.label}
                         color={item.color}
                         price={item.price}
-                        soldOut={!inventory[key]}
+                        soldOut={!drinkInventory[key]}
                         disabled={
-                            !inventory[key] ||
+                            !drinkInventory[key] ||
                             !paymentInfo.paymentMethod ||
                             (paymentInfo.paymentMethod === "money" &&
                                 paymentInfo.price < item.price)

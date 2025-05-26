@@ -17,6 +17,7 @@ const VendingMachine = ({
     setCard,
 }) => {
     const [moneyInventory, setMoneyInventory] = useState(INIT_INVENTORY.money);
+    const [drinkInventory, setDrinkInventory] = useState(INIT_INVENTORY.drink);
 
     return (
         <section className="vending-machine">
@@ -26,6 +27,8 @@ const VendingMachine = ({
                 card={card}
                 setCard={setCard}
                 moneyInventory={moneyInventory}
+                drinkInventory={drinkInventory}
+                setDrinkInventory={setDrinkInventory}
             />
             <section className="control-area">
                 <div className="ad-area">
@@ -40,10 +43,12 @@ const VendingMachine = ({
                     setPaymentInfo={setPaymentInfo}
                     setMoney={setMoney}
                     moneyInventory={moneyInventory}
+                    setMoneyInventory={setMoneyInventory}
+                    drinkInventory={drinkInventory}
                 />
             </section>
             <section className="outlet-area">
-                <div className="outlet-inside"/>
+                <div className="outlet-inside" />
             </section>
         </section>
     );
