@@ -90,25 +90,27 @@ const DrinkPanel = ({
 
     return (
         <section className="drink-panel">
-            {Object.entries(DRINK_META).map(([key, item], index) => (
-                <DrinkItem
-                    key={index}
-                    enName={key}
-                    name={item.label}
-                    color={item.color}
-                    price={item.price}
-                    soldOut={!inventory[key]}
-                    disabled={
-                        !inventory[key] ||
-                        !paymentInfo.paymentMethod ||
-                        (paymentInfo.paymentMethod === "money" &&
-                            paymentInfo.price < item.price)
-                    }
-                    onClick={() =>
-                        chooseDrink({ name: key, price: item.price })
-                    }
-                />
-            ))}
+            <div className="drink-view">
+                {Object.entries(DRINK_META).map(([key, item], index) => (
+                    <DrinkItem
+                        key={index}
+                        enName={key}
+                        name={item.label}
+                        color={item.color}
+                        price={item.price}
+                        soldOut={!inventory[key]}
+                        disabled={
+                            !inventory[key] ||
+                            !paymentInfo.paymentMethod ||
+                            (paymentInfo.paymentMethod === "money" &&
+                                paymentInfo.price < item.price)
+                        }
+                        onClick={() =>
+                            chooseDrink({ name: key, price: item.price })
+                        }
+                    />
+                ))}
+            </div>
         </section>
     );
 };

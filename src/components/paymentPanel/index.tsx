@@ -60,7 +60,7 @@ const PaymentPanel = ({
         <div className="payment-panel">
             <div>
                 <div className="status-screen">
-                    <p>
+                    <p className="amount-paymnet">
                         {paymentInfo.paymentMethod === "card"
                             ? "CARD"
                             : paymentInfo.price}
@@ -68,20 +68,28 @@ const PaymentPanel = ({
                     <p>{paymentInfo.errorMessage || "거래 가능"}</p>
                 </div>
                 <div className="paper-money-in-and-out">
-                    <button>PAPER IN</button>
-                    <p>PAPER OUT</p>
+                    <div className="money-exit">
+                        <span>지폐</span>
+                    </div>
                 </div>
             </div>
-            <div>
+            <div className="coin-area">
                 <div className="coin-in-and-return-button">
-                    <button onClick={refundAmount}>return</button>
-                    <button>COINT IN</button>
+                    <button className="return-button" onClick={refundAmount}>
+                        return
+                    </button>
+                    <div className="coin-in-wrapper">
+                        <div className="coin-in" />
+                    </div>
                 </div>
-                <div className="coin-out">
-                    <p>COIN OUT</p>
-                </div>
+                <div className="coin-out" />
             </div>
-            <button>설정</button>
+            <button className="setting-button">
+                <div className="key-wrapper">
+                    <div className="key-in" />
+                </div>
+                <p>설정</p>
+            </button>
         </div>
     );
 };

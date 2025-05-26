@@ -28,7 +28,13 @@ const VendingMachine = ({
                 moneyInventory={moneyInventory}
             />
             <section className="control-area">
-                <div>AD</div>
+                <div className="ad-area">
+                    <h1>자판기 구현 과제</h1>
+                    <div>
+                        <p>문의: byeonghun08@gmail.com</p>
+                        <p>이병훈</p>
+                    </div>
+                </div>
                 <PaymentPanel
                     paymentInfo={paymentInfo}
                     setPaymentInfo={setPaymentInfo}
@@ -37,7 +43,7 @@ const VendingMachine = ({
                 />
             </section>
             <section className="outlet-area">
-                <p>음료 아웃</p>
+                <div className="outlet-inside"/>
             </section>
         </section>
     );

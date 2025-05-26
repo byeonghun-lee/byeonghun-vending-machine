@@ -63,7 +63,6 @@ const Wallet = ({
                         </li>
                     ))}
                 </ol>
-                <button className="edit-money-button">현금 수정</button>
             </div>
             <div className="cards">
                 <div className="debit-card">
@@ -80,7 +79,6 @@ const Wallet = ({
                         체크카드
                     </button>
                     <p>{card?.debit}</p>
-                    <button className="edit-card-button">수정</button>
                 </div>
                 <div className="credit-card">
                     <button
@@ -96,13 +94,15 @@ const Wallet = ({
                         신용카드
                     </button>
                     <p>거래 {card?.credit ? "가능" : "불가"}</p>
-                    <button className="edit-card-button">수정</button>
                 </div>
             </div>
-            <p className="desc">
-                자판기에 금액을 넣기 위해 동전 또는 지폐를 클릭하거나 카드를
-                클릭해주세요.
-            </p>
+            <ul>
+                <li>
+                    * 자판기에 금액을 넣기 위해 동전 또는 지폐를 클릭하거나
+                    카드를 클릭해주세요.
+                </li>
+                <li>* 돈을 돌려받기 위해선 return 버튼을 눌러주세요.</li>
+            </ul>
         </section>
     );
 };

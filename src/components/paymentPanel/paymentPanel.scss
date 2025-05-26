@@ -1,0 +1,134 @@
+.payment-panel {
+    display: flex;
+    justify-content: space-between;
+    flex: 4;
+
+    .status-screen {
+        padding: 0 20px;
+
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: center;
+        height: 70px;
+        width: 200px;
+        border-radius: 5px;
+        background-color: #424242;
+        color: #f44336;
+
+        .amount-paymnet {
+            margin-bottom: 5px;
+
+            font-size: 20px;
+            font-weight: bold;
+        }
+    }
+
+    .paper-money-in-and-out {
+        margin-top: 20px;
+        padding: 20px 10px 5px;
+
+        background-color: #212121;
+        width: 200px;
+        height: 6dvh;
+        border-radius: 5px;
+
+        .money-exit {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 5px;
+            background-color: rgba($color: #e0e0e0, $alpha: 0.5);
+            width: 100%;
+            height: 30px;
+            color: #e0e0e0;
+        }
+    }
+
+    .coin-area {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    .coin-in-and-return-button {
+        width: 170px;
+        height: 90px;
+        background-color: #e0e0e0;
+        padding: 10px 20px;
+        border-radius: 30px;
+        display: flex;
+        justify-content: space-between;
+
+        .return-button {
+            background-color: #fbc02d;
+            cursor: pointer;
+            border: none;
+            border-radius: 50%;
+            color: white;
+            width: 50px;
+            height: 50px;
+            font-weight: bold;
+        }
+
+        .coin-in-wrapper {
+            padding: 10px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 60px;
+            height: 60px;
+            background-color: #757575;
+            border-radius: 50%;
+
+            .coin-in {
+                width: 100%;
+                height: 5px;
+                background-color: #424242;
+                border-radius: 2px;
+            }
+        }
+    }
+
+    .coin-out {
+        margin-top: 150px;
+        margin-right: 15px;
+        background-color: #424242;
+        width: 70px;
+        height: 60px;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+    }
+
+    .setting-button {
+        display: flex;
+        align-items: center;
+        border: none;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        background-color: #9e9e9e;
+        width: 40px;
+        height: 90px;
+        color: #eeeeee;
+        font-size: 20px;
+        writing-mode: vertical-rl;
+
+        .key-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 5px 0;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background-color: #616161;
+
+            .key-in {
+                width: 3px;
+                height: 15px;
+                background-color: #424242;
+            }
+        }
+    }
+}
