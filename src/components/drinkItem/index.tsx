@@ -2,6 +2,16 @@
 
 import "./drinkItem.scss";
 
+interface DrinkItemProps {
+    enName: string;
+    name: string;
+    price: number;
+    color?: string;
+    disabled: boolean;
+    onClick: () => void;
+    soldOut: boolean;
+}
+
 const DrinkItem = ({
     enName,
     name,
@@ -10,7 +20,7 @@ const DrinkItem = ({
     disabled,
     onClick,
     soldOut,
-}) => {
+}: DrinkItemProps) => {
     return (
         <div className="drink-item">
             <div

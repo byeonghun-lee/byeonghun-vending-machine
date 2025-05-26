@@ -4,11 +4,27 @@ import { useEffect, useState } from "react";
 
 import DrinkItem from "../drinkItem";
 
-import DRINK_META from "@/constants/drinkMeta";
-
 import { getRefundMoney } from "@/lib/utils/payment";
 
+import DRINK_META from "@/constants/drinkMeta";
+import {
+    PaymentInfo,
+    Card,
+    MoneyInventory,
+    DrinkInventory,
+} from "@/types/payment";
+
 import "./drinkPanel.scss";
+
+interface DrinkPanelProps {
+    paymentInfo: PaymentInfo;
+    setPaymentInfo: React.Dispatch<React.SetStateAction<PaymentInfo>>;
+    card: Card;
+    setCard: React.Dispatch<React.SetStateAction<Card>>;
+    moneyInventory: MoneyInventory;
+    drinkInventory: DrinkInventory;
+    setDrinkInventory: React.Dispatch<React.SetStateAction<DrinkInventory>>;
+}
 
 const DrinkPanel = ({
     paymentInfo,
@@ -18,9 +34,9 @@ const DrinkPanel = ({
     moneyInventory,
     drinkInventory,
     setDrinkInventory,
-}) => {
-    const chooseDrink = ({ name, price }) => {
-        if (paymentInfo.paymentMethod === "money") {
+}: DrinkPanelProps) => {
+    const chooseDrink = ({ name, price }: { name: string; price: number }) => {
+        if (paymentInfo.paymentMethod === "cash") {
             if (paymentInfo.price < price) {
                 return;
             }
@@ -42,6 +58,7 @@ const DrinkPanel = ({
             setPaymentInfo((prev) => ({
                 ...prev,
                 price: prev.price - price,
+                ...(paymentInfo.price - price === 0 && { paymentMethod: null }),
             }));
         } else {
             if (paymentInfo.cardCategory === "debit") {
@@ -66,6 +83,12 @@ const DrinkPanel = ({
                     return;
                 }
             }
+
+            setPaymentInfo((prev) => ({
+                ...prev,
+                cardCategory: null,
+                paymentMethod: null,
+            }));
         }
 
         setDrinkInventory((prev) => ({
@@ -101,7 +124,7 @@ const DrinkPanel = ({
                         disabled={
                             !drinkInventory[key] ||
                             !paymentInfo.paymentMethod ||
-                            (paymentInfo.paymentMethod === "money" &&
+                            (paymentInfo.paymentMethod === "cash" &&
                                 paymentInfo.price < item.price)
                         }
                         onClick={() =>

@@ -1,4 +1,19 @@
+import {
+    PaymentInfo,
+    Card,
+    MoneyInventory,
+    CardCategory,
+} from "@/types/payment";
+
 import "./wallet.scss";
+
+interface WalletProps {
+    money: [string, number][];
+    card: Card;
+    setMoney: React.Dispatch<React.SetStateAction<MoneyInventory>>;
+    setPaymentInfo: React.Dispatch<React.SetStateAction<PaymentInfo>>;
+    paymentInfo: PaymentInfo;
+}
 
 const Wallet = ({
     money = [],
@@ -6,15 +21,24 @@ const Wallet = ({
     setMoney,
     setPaymentInfo,
     paymentInfo,
-}) => {
-    const attemptPayment = ({ method, value, cardCategory }) => {
-        const updatePaymentInfo = {
+}: WalletProps) => {
+    const attemptPayment = ({
+        method,
+        value,
+        cardCategory,
+    }: {
+        method: "cash" | "card";
+        value?: number;
+        cardCategory?: CardCategory;
+    }) => {
+        const updatePaymentInfo: PaymentInfo = {
             paymentMethod: method,
             price: paymentInfo.price,
             cardCategory: null,
+            errorMessage: null,
         };
 
-        if (method === "money") {
+        if (method === "cash") {
             setMoney((prev) => {
                 const updateValues = { ...prev };
                 const targetMoney = money.find(
@@ -28,7 +52,7 @@ const Wallet = ({
             updatePaymentInfo.price += value;
         } else {
             updatePaymentInfo.price = 0;
-            updatePaymentInfo.cardCategory = cardCategory;
+            updatePaymentInfo.cardCategory = cardCategory || null;
         }
 
         setPaymentInfo(updatePaymentInfo);
@@ -52,7 +76,7 @@ const Wallet = ({
                                 }
                                 onClick={() => {
                                     attemptPayment({
-                                        method: "money",
+                                        method: "cash",
                                         value: Number(moneyItem),
                                     });
                                 }}
@@ -68,7 +92,7 @@ const Wallet = ({
                 <div className="debit-card">
                     <button
                         className="insert-card-button"
-                        disabled={paymentInfo.paymentMethod === "money"}
+                        disabled={paymentInfo.paymentMethod === "cash"}
                         onClick={() => {
                             attemptPayment({
                                 method: "card",
@@ -83,7 +107,7 @@ const Wallet = ({
                 <div className="credit-card">
                     <button
                         className="insert-card-button"
-                        disabled={paymentInfo.paymentMethod === "money"}
+                        disabled={paymentInfo.paymentMethod === "cash"}
                         onClick={() => {
                             attemptPayment({
                                 method: "card",

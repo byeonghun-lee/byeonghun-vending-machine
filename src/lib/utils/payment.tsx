@@ -1,11 +1,28 @@
 import MONEY_UNITS from "@/constants/moneyUnits";
+import { MoneyInventory } from "@/types/payment";
 
-export const getRefundMoney = ({ amount, moneyInventory }) => {
+type RefundResult = {
+    [unit: number]: number;
+};
+
+interface GetRefundMoneyParams {
+    amount: number;
+    moneyInventory: MoneyInventory;
+}
+
+export const getRefundMoney = ({
+    amount,
+    moneyInventory,
+}: GetRefundMoneyParams): RefundResult => {
     const units = [...MONEY_UNITS].reverse();
     let result = {};
     let found = false;
 
-    const dfs = (index, remaining, current) => {
+    const dfs = (
+        index: number,
+        remaining: number,
+        current: RefundResult
+    ): void => {
         if (found) return;
         if (remaining === 0) {
             result = { ...result, ...current };

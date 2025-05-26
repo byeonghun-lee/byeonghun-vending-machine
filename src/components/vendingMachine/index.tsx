@@ -6,8 +6,22 @@ import DrinkPanel from "../drinkPanel";
 import PaymentPanel from "../paymentPanel";
 
 import INIT_INVENTORY from "@/constants/initialInventory";
+import {
+    Card,
+    PaymentInfo,
+    MoneyInventory,
+    DrinkInventory,
+} from "@/types/payment";
 
 import "./vendingMachine.scss";
+
+interface VendingMachineProps {
+    paymentInfo: PaymentInfo;
+    setPaymentInfo: React.Dispatch<React.SetStateAction<PaymentInfo>>;
+    setMoney: React.Dispatch<React.SetStateAction<MoneyInventory>>;
+    card: Card;
+    setCard: React.Dispatch<React.SetStateAction<Card>>;
+}
 
 const VendingMachine = ({
     paymentInfo,
@@ -15,9 +29,13 @@ const VendingMachine = ({
     setMoney,
     card,
     setCard,
-}) => {
-    const [moneyInventory, setMoneyInventory] = useState(INIT_INVENTORY.money);
-    const [drinkInventory, setDrinkInventory] = useState(INIT_INVENTORY.drink);
+}: VendingMachineProps) => {
+    const [moneyInventory, setMoneyInventory] = useState<MoneyInventory>(
+        INIT_INVENTORY.money
+    );
+    const [drinkInventory, setDrinkInventory] = useState<DrinkInventory>(
+        INIT_INVENTORY.drink
+    );
 
     return (
         <section className="vending-machine">

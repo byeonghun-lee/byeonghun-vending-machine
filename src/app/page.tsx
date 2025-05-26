@@ -6,11 +6,12 @@ import VendingMachine from "@/components/vendingMachine";
 import Wallet from "@/components/wallet";
 
 import INIT_WALLET from "@/constants/initialWallet";
+import { Money, Card, PaymentInfo } from "@/types/payment";
 
 export default function Home() {
-    const [money, setMoney] = useState(INIT_WALLET.money);
-    const [card, setCard] = useState(INIT_WALLET.card);
-    const [paymentInfo, setPaymentInfo] = useState({
+    const [money, setMoney] = useState<Money>(INIT_WALLET.money);
+    const [card, setCard] = useState<Card>(INIT_WALLET.card);
+    const [paymentInfo, setPaymentInfo] = useState<PaymentInfo>({
         paymentMethod: null,
         price: 0,
         cardCategory: null,

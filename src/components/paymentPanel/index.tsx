@@ -4,7 +4,18 @@ import { useEffect, useState } from "react";
 
 import { getRefundMoney } from "@/lib/utils/payment";
 
+import { PaymentInfo, MoneyInventory, DrinkInventory } from "@/types/payment";
+
 import "./paymentPanel.scss";
+
+interface PaymentPanelProps {
+    paymentInfo: PaymentInfo;
+    setPaymentInfo: React.Dispatch<React.SetStateAction<PaymentInfo>>;
+    setMoney: React.Dispatch<React.SetStateAction<MoneyInventory>>;
+    moneyInventory: MoneyInventory;
+    setMoneyInventory: React.Dispatch<React.SetStateAction<MoneyInventory>>;
+    drinkInventory: DrinkInventory;
+}
 
 const PaymentPanel = ({
     paymentInfo,
@@ -13,7 +24,7 @@ const PaymentPanel = ({
     moneyInventory,
     setMoneyInventory,
     drinkInventory,
-}) => {
+}: PaymentPanelProps) => {
     const [openedInventory, setOpenedInventory] = useState(false);
 
     const refundAmount = () => {
@@ -22,7 +33,7 @@ const PaymentPanel = ({
             price: 0,
         };
 
-        if (paymentInfo.paymentMethod === "money") {
+        if (paymentInfo.paymentMethod === "cash") {
             const refundMoney = getRefundMoney({
                 amount: paymentInfo.price,
                 moneyInventory,
